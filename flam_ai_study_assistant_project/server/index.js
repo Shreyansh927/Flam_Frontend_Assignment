@@ -1,20 +1,28 @@
 import "dotenv/config";
 import express from "express";
 import cors from "cors";
+import path from "path";
+import { fileURLToPath } from "url";
+
 import { buildPrompt } from "./prompt.js";
 import { parseAndValidateModelOutput } from "./validation.js";
 
 const app = express();
+
 const PORT = Number(process.env.PORT || 4000);
 const MODEL = process.env.GEMINI_MODEL || "gemini-2.5-flash";
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 app.disable("x-powered-by");
+
 app.use(
   cors({
     origin: process.env.CLIENT_ORIGIN || "http://localhost:5173",
   }),
 );
+
 app.use(express.json({ limit: "100kb" }));
 
 app.get("/api/health", (_req, res) => {
@@ -26,17 +34,15 @@ app.post("/api/generate", async (req, res) => {
     typeof req.body?.input === "string" ? req.body.input.trim() : "";
 
   if (!input) {
-    return res
-      .status(400)
-      .json({ error: "Please enter a topic or some notes." });
+    return res.status(400).json({
+      error: "Please enter a topic or some notes.",
+    });
   }
 
   if (input.length > 6000) {
-    return res
-      .status(400)
-      .json({
-        error: "Input is too long. Please keep it under 6000 characters.",
-      });
+    return res.status(400).json({
+      error: "Input is too long. Please keep it under 6000 characters.",
+    });
   }
 
   if (!process.env.GEMINI_API_KEY) {
@@ -74,7 +80,9 @@ app.post("/api/generate", async (req, res) => {
 
     if (!response.ok) {
       const providerText = await response.text();
+
       console.error("Gemini error:", providerText.slice(0, 1000));
+
       return res.status(502).json({
         error:
           "The AI provider failed to generate the study set. Please retry.",
@@ -82,12 +90,13 @@ app.post("/api/generate", async (req, res) => {
     }
 
     const payload = await response.json();
+
     const raw = payload?.candidates?.[0]?.content?.parts
       ?.map((part) => part.text || "")
       .join("");
 
     const data = parseAndValidateModelOutput(raw);
-    console.log(data)
+
     return res.json({ data });
   } catch (error) {
     if (error?.name === "AbortError") {
@@ -97,16 +106,24 @@ app.post("/api/generate", async (req, res) => {
     }
 
     console.error("Generation error:", error);
+
     return res.status(500).json({
-      error: error?.message || "Unexpected server error.",
+      error: "Unexpected server error.",
     });
   } finally {
     clearTimeout(timeout);
   }
 });
 
+/*
+ * Serve React production build
+ */
+app.use(express.static(path.join(__dirname, "../dist")));
 
+app.get("*splat", (_req, res) => {
+  res.sendFile(path.join(__dirname, "../dist/index.html"));
+});
 
 app.listen(PORT, () => {
-  console.log(`StudyAssistant server running on http://localhost:${PORT}`);
+  console.log(`StudyAssistant server running on port ${PORT}`);
 });
