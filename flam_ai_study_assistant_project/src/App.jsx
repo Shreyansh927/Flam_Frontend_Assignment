@@ -1,10 +1,10 @@
 import { useRef, useState } from "react";
-
+// import "./App.css";
 import PromptInput from "./components/promptInput/promptInput.jsx";
 import LoadingState from "./components/LoadingState/loadingState.jsx";
-import ErrorState from "./components/ErrorState/errorState.jsx"
+import ErrorState from "./components/ErrorState/errorState.jsx";
 import ResultView from "./components/ResultView/resultView.jsx";
-
+import './App.css'
 import { generateStudySet } from "./lib/api.js";
 import { validateStudyResult } from "./lib/validateResult.js";
 
@@ -14,7 +14,7 @@ export default function App() {
   const [error, setError] = useState("");
   const [lastInput, setLastInput] = useState("");
 
-  // Prevent an older request from overwriting a newer request
+  //here i prevent an older request from overwriting a newer request
   const requestId = useRef(0);
 
   async function generate(input) {
@@ -27,7 +27,7 @@ export default function App() {
     try {
       const data = await generateStudySet(input);
 
-      // Ignore stale response
+      // ignore stale response
       if (id !== requestId.current) return;
 
       const validation = validateStudyResult(data);
@@ -58,7 +58,7 @@ export default function App() {
       <nav className="nav">
         <div className="brand">
           <span className="brand-mark">S</span>
-          StudyForge
+          StudyAssistant
         </div>
 
         <span className="nav-note">Flam Frontend Assignment</span>

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import './promptInput.css'
 
 export default function PromptInput({ onSubmit, loading }) {
   const [value, setValue] = useState("");

@@ -1,3 +1,5 @@
+import './loadingState.css'
+
 export default function LoadingState() {
   return (
     <section className="state-card loading-card" aria-live="polite">

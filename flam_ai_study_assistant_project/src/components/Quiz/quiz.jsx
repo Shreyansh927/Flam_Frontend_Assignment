@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import './quiz.css'
 
 export default function Quiz({ questions }) {
   const [answers, setAnswers] = useState({});

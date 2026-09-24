@@ -1,4 +1,5 @@
 import { useState } from "react";
+import './flashcardDeck.css'
 
 export default function FlashcardDeck({ cards }) {
   const [index, setIndex] = useState(0);

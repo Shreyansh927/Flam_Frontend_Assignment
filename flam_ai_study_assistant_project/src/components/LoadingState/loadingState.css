@@ -1,0 +1,353 @@
+/* =========================================
+   PREMIUM AI LOADING STATE
+========================================= */
+
+.loading-card {
+  position: relative;
+
+  width: 100%;
+  min-height: 150px;
+
+  display: flex;
+  align-items: center;
+  gap: 22px;
+
+  margin-top: 18px;
+  padding: 26px 28px;
+
+  overflow: hidden;
+
+  border: 1px solid rgba(255, 255, 255, 0.075);
+  border-radius: 16px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.055),
+      rgba(255, 255, 255, 0.018)
+    );
+
+  box-shadow:
+    0 24px 60px rgba(0, 0, 0, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.035);
+
+  backdrop-filter: blur(18px);
+
+  animation: loadingCardIn 0.35s ease-out both;
+}
+
+
+/* =========================================
+   AMBIENT GLOW
+========================================= */
+
+.loading-card::before {
+  content: "";
+
+  position: absolute;
+
+  width: 220px;
+  height: 220px;
+
+  left: -90px;
+  top: 50%;
+
+  transform: translateY(-50%);
+
+  border-radius: 50%;
+
+  background: rgba(99, 102, 241, 0.12);
+
+  filter: blur(70px);
+
+  pointer-events: none;
+
+  animation: loadingGlow 3s ease-in-out infinite;
+}
+
+.loading-card::after {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  left: -40%;
+
+  width: 40%;
+  height: 100%;
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.045),
+    transparent
+  );
+
+  transform: skewX(-20deg);
+
+  animation: loadingSweep 2.8s ease-in-out infinite;
+}
+
+
+/* =========================================
+   SPINNER
+========================================= */
+
+.spinner {
+  position: relative;
+  z-index: 2;
+
+  flex: 0 0 auto;
+
+  width: 46px;
+  height: 46px;
+
+  border-radius: 50%;
+
+  border: 2px solid rgba(255, 255, 255, 0.07);
+
+  border-top-color: #818cf8;
+  border-right-color: #a78bfa;
+
+  animation: premiumSpin 0.85s linear infinite;
+
+  box-shadow:
+    0 0 18px rgba(99, 102, 241, 0.18),
+    inset 0 0 12px rgba(99, 102, 241, 0.04);
+}
+
+
+/* Inner ring */
+
+.spinner::before {
+  content: "";
+
+  position: absolute;
+
+  inset: 7px;
+
+  border-radius: 50%;
+
+  border: 1px solid rgba(167, 139, 250, 0.22);
+
+  animation: innerPulse 1.6s ease-in-out infinite;
+}
+
+
+/* Center glow */
+
+.spinner::after {
+  content: "";
+
+  position: absolute;
+
+  width: 5px;
+  height: 5px;
+
+  top: 50%;
+  left: 50%;
+
+  transform: translate(-50%, -50%);
+
+  border-radius: 50%;
+
+  background: #c4b5fd;
+
+  box-shadow:
+    0 0 8px #a78bfa,
+    0 0 18px rgba(139, 92, 246, 0.7);
+
+  animation: centerPulse 1.2s ease-in-out infinite;
+}
+
+
+/* =========================================
+   LOADING CONTENT
+========================================= */
+
+.loading-card > div:last-child {
+  position: relative;
+  z-index: 2;
+}
+
+.loading-card h2 {
+  margin: 0 0 7px;
+
+  color: #f4f4f5;
+
+  font-size: 16px;
+  font-weight: 600;
+
+  letter-spacing: -0.02em;
+}
+
+.loading-card .muted {
+  margin: 0;
+
+  max-width: 520px;
+
+  color: #71717a;
+
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+
+/* =========================================
+   SUBTLE LOADING DOTS
+========================================= */
+
+.loading-card h2::after {
+  content: "";
+
+  display: inline-block;
+
+  width: 18px;
+
+  margin-left: 3px;
+
+  color: #818cf8;
+
+  text-align: left;
+
+  animation: loadingDots 1.5s steps(4, end) infinite;
+}
+
+
+/* =========================================
+   ANIMATIONS
+========================================= */
+
+@keyframes premiumSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes innerPulse {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: scale(0.9);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes centerPulse {
+  0%,
+  100% {
+    opacity: 0.45;
+    transform: translate(-50%, -50%) scale(0.75);
+  }
+
+  50% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.15);
+  }
+}
+
+@keyframes loadingGlow {
+  0%,
+  100% {
+    opacity: 0.45;
+    transform: translateY(-50%) scale(0.9);
+  }
+
+  50% {
+    opacity: 0.8;
+    transform: translateY(-50%) scale(1.1);
+  }
+}
+
+@keyframes loadingSweep {
+  0% {
+    left: -40%;
+  }
+
+  55%,
+  100% {
+    left: 120%;
+  }
+}
+
+@keyframes loadingDots {
+  0% {
+    content: "";
+  }
+
+  25% {
+    content: ".";
+  }
+
+  50% {
+    content: "..";
+  }
+
+  75%,
+  100% {
+    content: "...";
+  }
+}
+
+@keyframes loadingCardIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 680px) {
+  .loading-card {
+    min-height: 135px;
+
+    padding: 22px;
+
+    gap: 17px;
+
+    border-radius: 14px;
+  }
+
+  .spinner {
+    width: 38px;
+    height: 38px;
+  }
+
+  .loading-card h2 {
+    font-size: 14px;
+  }
+
+  .loading-card .muted {
+    font-size: 11px;
+  }
+}
+
+
+/* =========================================
+   ACCESSIBILITY
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .loading-card,
+  .loading-card::before,
+  .loading-card::after,
+  .spinner,
+  .spinner::before,
+  .spinner::after,
+  .loading-card h2::after {
+    animation: none;
+  }
+}

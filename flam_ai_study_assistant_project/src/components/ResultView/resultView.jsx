@@ -1,5 +1,6 @@
 import FlashcardDeck from "../FlashcardDeck/flashcardDeck.jsx";
 import Quiz from "../Quiz/quiz.jsx";
+import './resultView.css'
 
 export default function ResultView({ result, onNew }) {
   return (

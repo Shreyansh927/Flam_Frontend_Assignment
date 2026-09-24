@@ -52,7 +52,7 @@ app.post("/api/generate", async (req, res) => {
   }
 
   const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 30000);
+  const timeout = setTimeout(() => controller.abort(), 60000);
 
   try {
     const response = await fetch(
@@ -115,9 +115,7 @@ app.post("/api/generate", async (req, res) => {
   }
 });
 
-/*
- * Serve React production build
- */
+// it is used for react serve build
 app.use(express.static(path.join(__dirname, "../dist")));
 
 app.get("*splat", (_req, res) => {
