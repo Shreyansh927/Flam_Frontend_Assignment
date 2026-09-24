@@ -1,122 +1,84 @@
-import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import './App.css'
+import { useRef, useState } from "react";
 
-function App() {
-  const [count, setCount] = useState(0)
+import PromptInput from "./components/PromptInput";
+import LoadingState from "./components/LoadingState";
+import ErrorState from "./components/ErrorState";
+import ResultView from "./components/ResultView";
+
+import { generateStudySet } from "./lib/api";
+import { validateStudyResult } from "./lib/validateResult";
+
+export default function App() {
+  const [result, setResult] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [lastInput, setLastInput] = useState("");
+
+  // Prevent an older request from overwriting a newer request
+  const requestId = useRef(0);
+
+  async function generate(input) {
+    const id = ++requestId.current;
+
+    setLoading(true);
+    setError("");
+    setLastInput(input);
+
+    try {
+      const data = await generateStudySet(input);
+
+      // Ignore stale response
+      if (id !== requestId.current) return;
+
+      const validation = validateStudyResult(data);
+
+      if (!validation.ok) {
+        throw new Error(validation.error);
+      }
+
+      setResult(validation.data);
+    } catch (err) {
+      if (id !== requestId.current) return;
+
+      setError(err.message || "Something went wrong.");
+    } finally {
+      if (id === requestId.current) {
+        setLoading(false);
+      }
+    }
+  }
+
+  function reset() {
+    setResult(null);
+    setError("");
+  }
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
+    <div className="app-shell">
+      <nav className="nav">
+        <div className="brand">
+          <span className="brand-mark">S</span>
+          StudyForge
         </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
 
-      <div className="ticks"></div>
+        <span className="nav-note">Flam Frontend Assignment</span>
+      </nav>
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+      {!result && (
+        <div className="home">
+          <PromptInput onSubmit={generate} loading={loading} />
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+          {loading && <LoadingState />}
+
+          {error && (
+            <ErrorState message={error} onRetry={() => generate(lastInput)} />
+          )}
+        </div>
+      )}
+
+      {result && <ResultView result={result} onNew={reset} />}
+
+      <footer>AI output is validated before being rendered.</footer>
+    </div>
+  );
 }
-
-export default App
