@@ -1,5 +1,5 @@
-import FlashcardDeck from "./FlashcardDeck";
-import Quiz from "./Quiz";
+import FlashcardDeck from "../FlashcardDeck/flashcardDeck.jsx";
+import Quiz from "../Quiz/quiz.jsx";
 
 export default function ResultView({ result, onNew }) {
   return (

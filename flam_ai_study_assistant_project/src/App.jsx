@@ -1,12 +1,12 @@
 import { useRef, useState } from "react";
 
-import PromptInput from "./components/PromptInput";
-import LoadingState from "./components/LoadingState";
-import ErrorState from "./components/ErrorState";
-import ResultView from "./components/ResultView";
+import PromptInput from "./components/promptInput/promptInput.jsx";
+import LoadingState from "./components/LoadingState/loadingState.jsx";
+import ErrorState from "./components/ErrorState/errorState.jsx"
+import ResultView from "./components/ResultView/resultView.jsx";
 
-import { generateStudySet } from "./lib/api";
-import { validateStudyResult } from "./lib/validateResult";
+import { generateStudySet } from "./lib/api.js";
+import { validateStudyResult } from "./lib/validateResult.js";
 
 export default function App() {
   const [result, setResult] = useState(null);

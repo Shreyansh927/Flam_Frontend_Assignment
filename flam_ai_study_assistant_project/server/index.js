@@ -7,8 +7,7 @@ import { parseAndValidateModelOutput } from "./validation.js";
 const app = express();
 const PORT = Number(process.env.PORT || 4000);
 const MODEL = process.env.GEMINI_MODEL || "gemini-2.5-flash";
-console.log(process.env.GEMINI_MODEL);
-console.log(process.env.GEMINI_API_KEY);
+
 
 app.disable("x-powered-by");
 app.use(
@@ -54,10 +53,17 @@ app.post("/api/generate", async (req, res) => {
       `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${process.env.GEMINI_API_KEY}`,
       {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+        },
         signal: controller.signal,
         body: JSON.stringify({
-          contents: [{ role: "user", parts: [{ text: buildPrompt(input) }] }],
+          contents: [
+            {
+              role: "user",
+              parts: [{ text: buildPrompt(input) }],
+            },
+          ],
           generationConfig: {
             temperature: 0.2,
             responseMimeType: "application/json",
@@ -81,6 +87,7 @@ app.post("/api/generate", async (req, res) => {
       .join("");
 
     const data = parseAndValidateModelOutput(raw);
+    console.log(data)
     return res.json({ data });
   } catch (error) {
     if (error?.name === "AbortError") {
