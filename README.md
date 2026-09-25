@@ -42,6 +42,28 @@ Watch the short walkthrough to see StudyForge in action, including:
 
 [▶ Watch the StudyAssistant Demo](https://drive.google.com/file/d/1zuMgwx3GpixwURVN3mzsTBfmo_Mra0y8/view?usp=drive_link)
 
+## Screenshots
+## Screenshots
+
+<table>
+  <tr>
+    <td width="50%">
+      <img src="https://github.com/user-attachments/assets/7cec2013-2f0e-491d-ba06-6dafe6d5d93e" alt="StudyForge Study Set" width="100%" />
+    </td>
+    <td width="50%">
+      <img src="https://github.com/user-attachments/assets/9fb04dfd-6227-4163-9b5a-7f2d75908c12" alt="StudyForge Flashcards" width="100%" />
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">
+      <img src="https://github.com/user-attachments/assets/9925e548-93cd-4169-a922-fd64e37ef92d" alt="StudyForge AI Refinement" width="100%" />
+    </td>
+  </tr>
+</table>
+
+
+
+
 
 ## Architecture
 
