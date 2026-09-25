@@ -1,5 +1,5 @@
-import { useState } from "react";
-import './flashCardDeck.css'
+import { useEffect, useState } from "react";
+import "./flashCardDeck.css";
 
 export default function FlashcardDeck({ cards }) {
   const [index, setIndex] = useState(0);
@@ -7,12 +7,28 @@ export default function FlashcardDeck({ cards }) {
 
   const card = cards[index];
 
-  function move(delta) {
+  const move = (delta) => {
     setFlipped(false);
-    setIndex((current) =>
-      Math.min(cards.length - 1, Math.max(0, current + delta)),
-    );
-  }
+    setIndex((i) => Math.max(0, Math.min(cards.length - 1, i + delta)));
+  };
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA") {
+        return;
+      }
+
+      if (e.key === "ArrowLeft") move(-1);
+      if (e.key === "ArrowRight") move(1);
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        setFlipped((v) => !v);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [cards.length]);
 
   return (
     <section className="panel">
@@ -28,13 +44,12 @@ export default function FlashcardDeck({ cards }) {
 
       <button
         className={`flashcard ${flipped ? "is-flipped" : ""}`}
-        onClick={() => setFlipped((value) => !value)}
-        aria-label="Flip flashcard"
+        onClick={() => setFlipped((v) => !v)}
       >
         <span className="difficulty">{card.difficulty}</span>
         <span className="card-label">{flipped ? "ANSWER" : "QUESTION"}</span>
         <strong>{flipped ? card.answer : card.question}</strong>
-        <span className="flip-hint">Click to flip</span>
+        <span className="flip-hint">← → navigate · Enter flip</span>
       </button>
 
       <div className="card-actions">
@@ -45,6 +60,7 @@ export default function FlashcardDeck({ cards }) {
         >
           ← Previous
         </button>
+
         <button
           className="primary"
           onClick={() => move(1)}

@@ -201,22 +201,21 @@ app.post("/api/refine", async (req, res) => {
     if (!response.ok) {
       const providerText = await response.text();
 
-      console.error("Gemini refinement error:", providerText.slice(0, 2000));
+      console.error("REFINE GEMINI STATUS:", response.status);
 
-      let providerError;
+      console.error("REFINE GEMINI RESPONSE:", providerText);
+
+      let providerError = null;
 
       try {
         providerError = JSON.parse(providerText);
       } catch {
-        providerError = null;
+        // Not JSON
       }
 
-      // Gemini quota limit
       if (response.status === 429) {
         return res.status(429).json({
-          error:
-            providerError?.error?.message ||
-            "AI usage limit reached. Please try again later.",
+          error: "AI usage limit reached. Please try again later.",
           code: "QUOTA_EXCEEDED",
         });
       }
@@ -239,6 +238,25 @@ app.post("/api/refine", async (req, res) => {
 
     return res.json({ data });
   } catch (error) {
+    console.error("REFINEMENT FETCH ERROR:", error);
+
+    if (error?.name === "AbortError") {
+      return res.status(504).json({
+        error: "The refinement request took too long. Please try again.",
+        code: "AI_TIMEOUT",
+      });
+    }
+
+    if (
+      error?.code === "UND_ERR_CONNECT_TIMEOUT" ||
+      error?.cause?.code === "UND_ERR_CONNECT_TIMEOUT"
+    ) {
+      return res.status(503).json({
+        error: "Unable to connect to the AI service. Please try again.",
+        code: "AI_CONNECTION_ERROR",
+      });
+    }
+
     if (error?.name === "AbortError") {
       return res.status(504).json({
         error: "The refinement request took too long. Please retry.",
@@ -249,6 +267,7 @@ app.post("/api/refine", async (req, res) => {
 
     return res.status(500).json({
       error: "Unexpected server error.",
+      code: "SERVER_ERROR",
     });
   } finally {
     clearTimeout(timeout);

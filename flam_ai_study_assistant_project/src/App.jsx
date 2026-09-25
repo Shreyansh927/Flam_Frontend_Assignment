@@ -149,17 +149,14 @@ export default function App() {
           StudyAssistant
         </div>
 
-        <span className="nav-note">
-          Flam Frontend Assignment
-        </span>
+        <span className="nav-note">Flam Frontend Assignment</span>
       </nav>
 
-      {!result ? (
+      {error ? (
+        <ErrorState message={error} onRetry={retry} />
+      ) : !result ? (
         <div className="home">
-          <PromptInput
-            onSubmit={generate}
-            loading={loading}
-          />
+          <PromptInput onSubmit={generate} loading={loading} />
 
           {loading && <LoadingState />}
         </div>
@@ -172,17 +169,7 @@ export default function App() {
         />
       )}
 
-      
-      {error && (
-        <ErrorState
-          message={error}
-          onRetry={retry}
-        />
-      )}
-
-      <footer>
-        AI output is validated before being rendered.
-      </footer>
+      <footer>AI output is validated before being rendered.</footer>
     </div>
   );
 };
