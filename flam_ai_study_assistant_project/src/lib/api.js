@@ -1,3 +1,4 @@
+const API_BACKEND_URL = import.meta.env.VITE_API_URL
 function getApiError(payload, fallback) {
   if (payload?.code === "QUOTA_EXCEEDED") {
     return "AI usage limit reached. Please try again later.";
@@ -23,7 +24,7 @@ async function parseResponse(response) {
 }
 
 export async function generateStudySet(input, signal) {
-  const response = await fetch("/api/generate", {
+  const response = await fetch(`${API_BACKEND_URL}/api/generate`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -46,7 +47,7 @@ export async function generateStudySet(input, signal) {
 }
 
 export async function refineStudySet(result, instruction) {
-  const response = await fetch("/api/refine", {
+  const response = await fetch(`${API_BACKEND_URL}/api/refine`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
