@@ -88,36 +88,6 @@ export default function ResultView({ result, onNew, onRefine, refining }) {
               )}
             </button>
           </div>
-
-          <div className="refinement-footer">
-            <div className="suggestion-list">
-              <button
-                type="button"
-                onClick={() => setInstruction("Make the quiz harder")}
-                disabled={refining}
-              >
-                Make it harder
-              </button>
-
-              <button
-                type="button"
-                onClick={() => setInstruction("Simplify the explanations")}
-                disabled={refining}
-              >
-                Simplify
-              </button>
-
-              <button
-                type="button"
-                onClick={() => setInstruction("Add more conceptual questions")}
-                disabled={refining}
-              >
-                Add concepts
-              </button>
-            </div>
-
-            <span className="character-count">{instruction.length}/500</span>
-          </div>
         </form>
       </section>
 
