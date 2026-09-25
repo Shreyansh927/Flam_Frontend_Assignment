@@ -1,4 +1,4 @@
-# StudyForge — Flam Frontend Internship Assignment
+# StudyAssistant — Flam Frontend Internship Assignment
 
 An AI-powered interactive study assistant built for the Flam frontend assignment.
 
