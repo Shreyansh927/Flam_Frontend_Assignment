@@ -1,7 +1,3 @@
-/* =========================================
-   RESULT VIEW — PREMIUM DARK SAAS
-========================================= */
-
 .result-layout {
   position: relative;
 
@@ -17,10 +13,6 @@
   gap: 22px;
 }
 
-
-/* =========================================
-   SUBTLE PAGE AMBIENT GLOW
-========================================= */
 
 .result-layout::before {
   content: "";
@@ -46,10 +38,6 @@
   z-index: -1;
 }
 
-
-/* =========================================
-   RESULT HEADER
-========================================= */
 
 .result-header {
   position: relative;
@@ -88,10 +76,6 @@
   animation: resultHeaderIn 0.4s ease-out both;
 }
 
-
-/* =========================================
-   HEADER LIGHT EFFECT
-========================================= */
 
 .result-header::before {
   content: "";
@@ -135,10 +119,6 @@
 }
 
 
-/* =========================================
-   HEADER CONTENT
-========================================= */
-
 .result-header > div {
   position: relative;
   z-index: 2;
@@ -146,10 +126,6 @@
   min-width: 0;
 }
 
-
-/* =========================================
-   EYEBROW
-========================================= */
 
 .result-header .eyebrow {
   display: flex;
@@ -181,10 +157,6 @@
 }
 
 
-/* =========================================
-   TITLE
-========================================= */
-
 .result-header h1 {
   margin: 0;
 
@@ -203,10 +175,6 @@
 }
 
 
-/* =========================================
-   SUMMARY
-========================================= */
-
 .result-header p {
   max-width: 680px;
 
@@ -221,10 +189,6 @@
   overflow-wrap: anywhere;
 }
 
-
-/* =========================================
-   NEW TOPIC BUTTON
-========================================= */
 
 .result-header .secondary {
   position: relative;
@@ -301,10 +265,6 @@
 }
 
 
-/* =========================================
-   SECTION SPACING
-========================================= */
-
 .result-layout > .panel {
   animation: resultSectionIn 0.4s ease-out both;
 }
@@ -317,10 +277,6 @@
   animation-delay: 0.15s;
 }
 
-
-/* =========================================
-   ANIMATIONS
-========================================= */
 
 @keyframes resultHeaderIn {
   from {
@@ -346,10 +302,6 @@
   }
 }
 
-
-/* ================================
-   AI REFINEMENT
-================================ */
 
 .refinement-box {
   position: relative;
@@ -378,8 +330,6 @@
   -webkit-backdrop-filter: blur(18px);
 }
 
-/* subtle top glow */
-
 .refinement-box::before {
   content: "";
   position: absolute;
@@ -398,8 +348,6 @@
   opacity: 0.8;
 }
 
-
-/* Header */
 
 .refinement-header {
   display: flex;
@@ -422,8 +370,6 @@
   color: rgba(255, 255, 255, 0.94);
 }
 
-
-/* AI orb */
 
 .ai-orb {
   width: 38px;
@@ -452,8 +398,6 @@
   color: #c4b5fd;
 }
 
-
-/* AI badge */
 
 .ai-badge {
   display: inline-flex;
@@ -485,8 +429,6 @@
 }
 
 
-/* Description */
-
 .refinement-description {
   margin: 0.85rem 0 1rem;
 
@@ -498,8 +440,6 @@
   line-height: 1.55;
 }
 
-
-/* Input container */
 
 .refinement-input-wrap {
   display: flex;
@@ -531,8 +471,6 @@
 }
 
 
-/* Input */
-
 .refinement-input-wrap input {
   flex: 1;
 
@@ -557,8 +495,6 @@
   color: rgba(255, 255, 255, 0.3);
 }
 
-
-/* Refine button */
 
 .refine-button {
   flex-shrink: 0;
@@ -617,8 +553,6 @@
 }
 
 
-/* Footer */
-
 .refinement-footer {
   display: flex;
   align-items: center;
@@ -629,8 +563,6 @@
   margin-top: 0.65rem;
 }
 
-
-/* Suggestions */
 
 .suggestion-list {
   display: flex;
@@ -675,8 +607,6 @@
 }
 
 
-/* Character count */
-
 .character-count {
   flex-shrink: 0;
 
@@ -685,8 +615,6 @@
   color: rgba(255, 255, 255, 0.25);
 }
 
-
-/* Spinner */
 
 .button-spinner {
   width: 13px;
@@ -706,10 +634,6 @@
   }
 }
 
-
-/* ================================
-   MOBILE
-================================ */
 
 @media (max-width: 640px) {
   .refinement-box {
@@ -747,10 +671,6 @@
 }
 
 
-/* =========================================
-   MOBILE
-========================================= */
-
 @media (max-width: 680px) {
   .result-layout {
     padding: 30px 16px 70px;
@@ -787,10 +707,6 @@
   }
 }
 
-
-/* =========================================
-   REDUCED MOTION
-========================================= */
 
 @media (prefers-reduced-motion: reduce) {
   .result-header,
