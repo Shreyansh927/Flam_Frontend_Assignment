@@ -43,7 +43,6 @@ Watch the short walkthrough to see StudyForge in action, including:
 [▶ Watch the StudyAssistant Demo](https://drive.google.com/file/d/1zuMgwx3GpixwURVN3mzsTBfmo_Mra0y8/view?usp=drive_link)
 
 ## Screenshots
-## Screenshots
 
 <table>
   <tr>
