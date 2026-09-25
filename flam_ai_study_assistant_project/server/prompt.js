@@ -40,3 +40,47 @@ Rules:
 User input:
 ${userInput}`;
 }
+
+export function buildRefinementPrompt(result, instruction) {
+  return `
+You are refining an existing AI-generated study set.
+
+The user wants to modify the existing study set according to their instruction.
+
+USER INSTRUCTION:
+${instruction}
+
+EXISTING STUDY SET:
+${JSON.stringify(result)}
+
+IMPORTANT RULES:
+
+1. Modify the existing study set instead of creating an unrelated study set.
+2. Preserve the original topic and useful information unless the user asks to change it.
+3. Apply the user's instruction to the relevant parts.
+4. Return the COMPLETE updated study set.
+5. Keep the exact JSON structure required by the application.
+6. The response must contain:
+   - title
+   - summary
+   - cards
+   - quiz
+7. Each flashcard must contain:
+   - id
+   - question
+   - answer
+   - difficulty
+8. Each quiz question must contain:
+   - id
+   - question
+   - options
+   - answerIndex
+   - explanation
+9. Every quiz question must have exactly 4 options.
+10. answerIndex must be between 0 and 3.
+11. Do not return markdown.
+12. Return only valid JSON.
+
+Return the complete updated study set.
+`;
+}
