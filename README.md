@@ -28,6 +28,20 @@ The React UI then turns that structured data into interactive learning features:
 
 The application is intentionally **not a chatbot**. Gemini is responsible for generating study content, while the React application owns the structured data, validation, state management, interactions, persistence, and UI.
 
+## Demo Video
+
+Watch the short walkthrough to see StudyForge in action, including:
+
+- AI study-set generation
+- Interactive flashcards
+- Quiz and scoring
+- AI-powered study-set refinement
+- Error handling and validation
+- LocalStorage session persistence
+- Dockerized application setup
+
+[▶ Watch the StudyForge Demo](https://drive.google.com/file/d/1zuMgwx3GipwxURVN3mzsTBfmo_Mra0y8/view)
+
 
 ## Architecture
 
