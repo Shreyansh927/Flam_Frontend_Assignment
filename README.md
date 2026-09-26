@@ -52,6 +52,20 @@ Watch the short walkthrough to see StudyForge in action, including:
     <td width="50%">
       <img src="https://github.com/user-attachments/assets/9fb04dfd-6227-4163-9b5a-7f2d75908c12" alt="StudyForge Flashcards" width="100%" />
     </td>
+    
+  </tr>
+  <tr>
+    <td width="50%">
+      <img width="1920" height="1080" alt="Screenshot 2026-09-26 143554" src="https://github.com/user-attachments/assets/4e37b877-dd2c-4f54-b1da-ab908f66cc60" />
+    </td>
+    <td width="50%">
+      <img width="1920" height="1080" alt="Screenshot 2026-09-26 143822" src="https://github.com/user-attachments/assets/1aaac0d7-fd4e-40c8-9b96-f7490ea462e2" />
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">
+      <img width="1152" height="331" alt="Screenshot 2026-09-26 143927" src="https://github.com/user-attachments/assets/07df884e-92fa-43ff-86c8-d88c34506591" />
+    </td>
   </tr>
   <tr>
     <td colspan="2">
